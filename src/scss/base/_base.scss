@@ -1,0 +1,109 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+	@include flex(column);
+	min-height: 100vh;
+	font-family: $font-body;
+	@include font-size($p-font-size, 0.875);
+	line-height: 1.5;
+	color: $grey;
+	background-color: $milk;
+}
+
+main {
+	flex: 1;
+	padding-block: 48px;
+	animation: fade-up 0.5s ease both;
+}
+
+.container {
+	width: 100%;
+	max-width: $container-width;
+	margin: 0 auto;
+	padding: 0 $container-padding;
+
+	@include respond('lg') {
+		padding: 0 60px;
+	}
+
+	@include respond('md') {
+		padding: 0 40px;
+	}
+
+	@include respond('sm') {
+		padding: 0 24px;
+	}
+
+	@include respond('xs') {
+		padding: 0 16px;
+	}
+}
+
+h1,
+h2,
+h3 {
+	font-family: $font-heading;
+	line-height: 1.2;
+	color: $aqua;
+}
+
+h1 {
+	font-weight: 700;
+	@include font-size($h1-font-size, 0.6);
+}
+
+h2 {
+	font-weight: 600;
+	@include font-size($h2-font-size, 0.65);
+}
+
+h3 {
+	font-weight: 600;
+	@include font-size($h3-font-size, 0.8);
+}
+
+@view-transition {
+	navigation: auto;
+}
+
+::view-transition-old(root) {
+	animation: fade-out 0.25s ease both;
+}
+
+::view-transition-new(root) {
+	animation: fade-in 0.25s ease both;
+}
+
+@keyframes fade-in {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+
+@keyframes fade-out {
+	from { opacity: 1; }
+	to { opacity: 0; }
+}
+
+@keyframes fade-up {
+	from {
+		opacity: 0;
+		transform: translateY(16px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+	* {
+		animation: none !important;
+		transition: none !important;
+	}
+}

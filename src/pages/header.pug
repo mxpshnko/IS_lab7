@@ -1,0 +1,13 @@
+- var menu = [{ id: 'calculator', title: 'Калькулятор', href: 'calculator.html' }, { id: 'contacts', title: 'Контакти', href: '#contacts' }]
+
+header.header
+	.container.header__inner
+		a.header__logo(href='index.html')
+			img(src='/images/logo.png', alt='KANDINSKY Odesa Residence')
+			span KANDINSKY Odesa Residence
+		nav.header__nav
+			ul.header__menu
+				each item in menu 
+					li
+						a.header__link(href=item.href, class=(item.id === active ? 'is-active' : ''))= item.title
+			a.btn-orange(href='my-requests.html') Особистий кабінет

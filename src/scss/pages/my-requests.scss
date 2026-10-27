@@ -1,0 +1,124 @@
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
+
+$status-colors: (
+	'work': $orange,
+	'assigned': $orange,
+	'new': $blue,
+	'queue': $orange,
+	'closed': $grey
+);
+
+.page-head {
+	@include flex(row, space-between, center, 16px);
+	margin-bottom: 32px;
+
+	.page-title {
+		margin: 0;
+	}
+
+	@include respond('sm') {
+		flex-direction: column;
+		align-items: stretch;
+		text-align: center;
+	}
+}
+
+.requests-card {
+	padding: 8px 24px;
+	background-color: $white;
+	border: 1px solid $line;
+	border-radius: 12px;
+	animation: fade-up 0.6s ease 0.1s backwards;
+
+	@include respond('sm') {
+		padding: 8px 16px;
+	}
+}
+
+.requests-table {
+    width: 100%;
+	border-collapse: collapse;
+	text-align: left;
+
+    th {
+		padding: 20px 8px;
+		font-family: $font-heading;
+		font-weight: 600;
+		@include font-size(13px, 0.9);
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: $aqua;
+		border-bottom: 1px solid $line;
+	}
+
+    td {
+		padding: 20px 8px;
+		border-bottom: 1px solid $line;
+		@include font-size($p-font-size, 0.875);
+	}
+
+    th:last-child,
+	td:last-child {
+		text-align: right;
+	}
+
+    tbody tr {
+        transition: background-color 0.25s ease;
+		animation: fade-up 0.5s ease backwards;
+        
+        &:hover {
+			background-color: rgba($light-aqua, 0.35);
+		}
+
+		&:last-child td {
+			border-bottom: none;
+		}
+
+        @for $i from 1 through 5 {
+			&:nth-child(#{$i}) {
+				animation-delay: #{0.18 * $i}s;
+			}
+		}
+    }
+
+    &__num {
+		font-weight: 700;
+		color: $aqua;
+		transition: color 0.25s ease;
+
+		&:hover {
+			color: $orange;
+		}
+	}
+
+    @include table-cards;
+}
+
+.status {
+	@include flex(row, flex-start, center, 8px);
+	display: inline-flex;
+	padding: 4px 12px;
+	font-family: $font-heading;
+	font-weight: 600;
+	@include font-size(12px, 0.9);
+	white-space: nowrap;
+	background-color: $white;
+	border: 1px solid $line;
+	border-radius: 999px;
+
+    &::before {
+		content: '';
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+	}
+
+    // для кожного статусу свій клас
+    @each $name, $color in $status-colors {
+		&--#{$name}::before {
+			background-color: $color;
+		}
+	}
+}
+

@@ -1,0 +1,40 @@
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
+
+.field {
+    @include flex(column, flex-start, stretch, 8px);
+
+    &__label {
+		font-family: $font-heading;
+		font-weight: 600;
+		@include font-size(14px, 0.9);
+		color: $grey;
+	}
+
+    &__control {
+        width: 100%;
+		padding: 14px 16px;
+		font-family: $font-body;
+        @include font-size($p-font-size, 0.875);
+		color: $grey;
+		background-color: $white;
+		border: 1px solid $line;
+		border-radius: $radius;
+		transition: border-color 0.25s ease, box-shadow 0.25s ease;
+
+        &::placeholder {
+			color: rgba($grey, 0.5);
+		}
+
+        &:focus {
+			outline: none;
+			border-color: $orange;
+			box-shadow: 0 0 0 3px rgba($orange, 0.15);
+		}
+
+        &--textarea {
+			min-height: 160px;
+			resize: vertical;
+		}
+    }
+}

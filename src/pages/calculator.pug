@@ -1,0 +1,65 @@
+- var active = 'calculator'
+- var months = ['Червень 2026', 'Липень 2026', 'Серпень 2026', 'Вересень 2026', 'Жовтень 2026', 'Листопад 2026']
+- var heads = ['Послуга', 'Спосіб обліку', 'Попередні', 'Поточні', 'Обсяг', 'Тариф, грн', 'Сума, грн']
+- var rows = [{ id: 'cold', name: 'Холодна вода', method: 'Лічильник, м³', meter: true, prev: 120, curr: 126, volume: '6', tariff: '28,50', sum: '171,00' }, { id: 'hot', name: 'Гаряча вода', method: 'Лічильник, м³', meter: true, prev: 80, curr: 83, volume: '3', tariff: '95,00', sum: '285,00' }, { id: 'house', name: 'Утримання будинку', method: 'Площа, м²', meter: false, volume: '54', tariff: '7,20', sum: '388,80' }, { id: 'waste', name: 'Вивіз сміття', method: 'Кількість мешканців', meter: false, volume: '3', tariff: '45,00', sum: '135,00' }]
+
+include header.pug
+
+main
+	.container
+		h1.page-title Розрахунок нарахувань
+		p.page-lead Введіть показники лічильників, щоб розрахувати суму до сплати за місяць.
+
+		form.calc#calc-form(action='#')
+			section.calc-params
+				h3 Дані квартири
+				.calc-params__grid
+					.field
+						label.field__label(for='area') Площа квартири, м²
+						input#area.field__control(type='number', name='area', value='54', min='1')
+					.field
+						label.field__label(for='residents') Кількість мешканців
+						input#residents.field__control(type='number', name='residents', value='3', min='1')
+					.field
+						label.field__label(for='month') Місяць
+						select#month.field__control(name='month')
+							each month in months
+								option(value=month, selected=(month === 'Жовтень 2026'))= month
+
+			section.calc-card
+				.calc-table-wrap
+					table.calc-table
+						thead
+							tr
+								each head in heads
+									th= head
+						tbody
+							each row in rows
+								tr
+									td
+										strong= row.name
+									td= row.method
+									td
+										if row.meter
+											input.field__control.calc-table__input(type='number', name=row.id + '-prev', value=row.prev)
+										else
+											| —
+									td
+										if row.meter
+											input.field__control.calc-table__input(type='number', name=row.id + '-curr', value=row.curr)
+										else
+											| —
+									td= row.volume
+									td= row.tariff
+									td= row.sum
+				p.calc-note Сума = тариф × обсяг. Обсяг лічильника = поточні - попередні показники.
+				
+				.calc-total
+					.calc-total__sum
+						span Разом до сплати:
+						strong#total 979,80 грн
+					.calc-total__actions
+						button.btn-orange(type='button') Розрахувати
+						button.btn-outline(type='reset') Скинути
+
+include footer.pug

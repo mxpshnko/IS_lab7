@@ -1,0 +1,15 @@
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
+
+.btn-orange {
+	@include button($orange, $grey, $orange, $orange-dark, $grey);
+}
+
+.btn-outline {
+	@include button(transparent, $aqua, $aqua, $aqua, $white);
+}
+
+.btn-small {
+	padding: 8px 20px;
+	@include font-size(14px, 0.9);
+}

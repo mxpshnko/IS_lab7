@@ -1,0 +1,120 @@
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
+
+.calc-params {
+    margin-bottom: 24px;
+	padding: 32px;
+	background-color: $light-aqua;
+	border-radius: 12px;
+	animation: fade-up 0.6s ease 0.1s backwards;
+
+    @include respond('sm') {
+		padding: 24px 20px;
+	}
+
+    h3 {
+		margin-bottom: 20px;
+	}
+
+    &__grid {
+        @include flex(row, space-between, stretch, 24px);
+
+        @include respond('sm') {
+			flex-direction: column;
+			gap: 16px;
+		}
+
+		.field {
+			flex: 1;
+		}
+    }
+}
+
+.calc-card {
+    padding: 24px 24px 32px;
+	background-color: $white;
+	border: 1px solid $line;
+	border-radius: 12px;
+	animation: fade-up 0.6s ease 0.2s backwards;
+
+    @include respond('sm') {
+		padding: 16px;
+	}
+}
+
+.calc-table-wrap {
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+}
+
+.calc-table {
+	width: 100%;
+	min-width: 720px;
+	border-collapse: collapse;
+	text-align: left;
+
+	th {
+		padding: 12px 8px;
+		font-family: $font-heading;
+		font-weight: 600;
+		@include font-size(14px, 0.9);
+		color: $aqua;
+		white-space: nowrap;
+		border-bottom: 1px solid $line;
+	}
+
+	td {
+		padding: 18px 8px;
+		border-bottom: 1px solid $line;
+		@include font-size($p-font-size, 0.875);
+	}
+
+	&__input {
+		width: 90px;
+		padding: 10px 12px;
+
+		@include respond('md') {
+			width: 70px;
+			padding: 8px;
+		}
+	}
+}
+
+.calc-note {
+    padding-top: 25px
+}
+
+.calc-total {
+	@include flex(row, space-between, center, 24px);
+	flex-wrap: wrap;
+	margin-top: 24px;
+	padding: 24px 32px;
+	background-color: $light-aqua;
+	border-radius: 10px;
+
+	@include respond('sm') {
+		flex-direction: column;
+		align-items: stretch;
+		padding: 20px;
+	}
+
+	&__sum {
+		@include flex(row, flex-start, baseline, 16px);
+
+		strong {
+			font-family: $font-heading;
+			font-weight: 600;
+			@include font-size(32px, 0.7);
+			color: $aqua;
+		}
+	}
+
+	&__actions {
+		@include flex(row, flex-end, center, 16px);
+
+		@include respond('sm') {
+			flex-direction: column;
+			align-items: stretch;
+		}
+	}
+}

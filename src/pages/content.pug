@@ -1,0 +1,71 @@
+- var services = [{ title: 'Платежі', text: 'Переглядайте нарахування та сплачуйте рахунки онлайн.', img: 'service1.png', href: 'calculator.html' }, { title: 'Заявки на ремонт', text: 'Повідомляйте про несправності та стежте за статусом робіт.', img: 'service2.png', href: 'my-requests.html' }, { title: 'Повідомлення та голосування', text: 'Дізнавайтеся про важливі рішення вашого будинку.', img: 'service3.png', href: '#news' }]
+- var categories = ['Сантехніка', 'Електрика', 'Ліфт', 'Прибирання', 'Опалення']
+- var news = [{ date: '04.10.2026', title: 'Планове обслуговування системи водопостачання' }, { date: '12.09.2026', title: 'Звіт про виконані роботи за січень' }, { date: '05.09.2026', title: 'Голосування щодо благоустрою внутрішнього двору' }]
+
+main
+	section.section.hero
+		.container.hero__inner
+			.hero__image
+				img(src='/images/hero.png', alt='Житловий комплекс KANDINSKY Odesa Residence')
+			.hero__text
+				p.eyebrow Ваш будинок – у вашому смартфоні
+				h1 Керуйте своїм будинком онлайн
+				p.hero__desc Оплачуйте рахунки, подавайте заявки та отримуйте важливі новини будинку в одному зручному просторі.
+				a.btn-orange(href='calculator.html') Сплатити комунальні
+
+	section.section#services
+		.container
+			.section-head
+				div
+					p.eyebrow Усе необхідне поруч
+					h2 Основні сервіси
+				p.section-head__note Вирішуйте щоденні питання будинку без дзвінків та черг.
+			ul.services__list
+				each service in services
+					li.card
+						.card__image
+							img(src='/images/' + service.img, alt=service.title)
+						.card__body
+							h3= service.title
+							p= service.text
+							a.btn-outline(href=service.href) Перейти →
+
+	section.section#request
+		.container
+			.request
+				.request__info
+					p.eyebrow Допоможемо швидко
+					h2 Подати заявку на ремонт
+					p Опишіть проблему – керуюча компанія передасть заявку відповідному майстру та повідомлятиме про її статус.
+					hr.request__divider
+					.request__hours
+						strong 24/7
+						span Приймаємо заявки цілодобово
+				form.request__form(action='new-request.html', method='get')
+					.field
+						label.field__label(for='category') Категорія
+						select#category.field__control(name='category')
+							option(value='') Оберіть категорію
+							each category in categories
+								option(value=category)= category
+					.field
+						label.field__label(for='description') Опис проблеми
+						textarea#description.field__control.field__control--textarea(name='description', placeholder='Розкажіть, що сталося та де саме')
+					.request__actions
+						button.btn-outline(type='button') Додати фото
+						button.btn-orange(type='submit') Надіслати
+
+	section.section#news
+		.container
+			.section-head
+				div
+					p.eyebrow Важливе для мешканців
+					h2 Останні оголошення
+				a.link-underline(href='#news') Усі оголошення →
+			ul.news__list
+				each item in news
+					li.news__item
+						a.news__link(href='#news')
+							span.news__date= item.date
+							span.news__title= item.title
+							span.news__arrow →

@@ -1,0 +1,38 @@
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
+
+.footer {
+    padding: 28px 0;
+	color: $white;
+	background-color: $aqua;
+	@include font-size($footer-font-size, 0.85);
+	view-transition-name: footer;
+
+    &__inner {
+		@include flex(row, space-between, flex-start, 32px);
+
+		@include respond('sm') {
+			flex-wrap: wrap;
+			gap: 24px;
+		}
+
+		@include respond('xs') {
+			flex-direction: column;
+			gap: 20px;
+		}
+	}
+
+    &__col {
+		@include flex(column, flex-start, flex-start, 6px);
+
+		&--copy {
+			align-self: stretch;
+			justify-content: space-between;
+
+			@include respond('xs') {
+				gap: 6px;
+				justify-content: flex-start;
+			}
+		}
+	}
+}

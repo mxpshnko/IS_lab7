@@ -1,0 +1,125 @@
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
+
+.request-form {
+    @include flex(column, flex-start, stretch, 24px);
+    padding: 32px 30px;
+	background-color: $white;
+	border: 1px solid $line;
+	border-radius: 12px;
+	animation: fade-up 0.6s ease 0.1s backwards;
+
+    @include respond('sm') {
+		padding: 24px 16px;
+	}
+
+    &__actions {
+		@include flex(row, center, center, 16px);
+		flex-wrap: wrap;
+
+		@include respond('sm') {
+			flex-direction: column;
+			align-items: stretch;
+		}
+	}
+}
+
+.upload {
+    position: relative;
+	@include flex(column, center, center, 6px);
+	padding: 32px 16px;
+	text-align: center;
+	cursor: pointer;
+	border: 1px dashed $aqua;
+	border-radius: $radius;
+	transition: background-color 0.25s ease, border-color 0.25s ease;
+
+    &:hover {
+		background-color: rgba($light-aqua, 0.5);
+	}
+
+    &:focus-within {
+		border-color: $orange;
+	}
+
+    &__input {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		opacity: 0;
+	}
+
+    &__plus {
+		font-family: $font-heading;
+		font-weight: 600;
+		font-size: 24px;
+		line-height: 1;
+		color: $aqua;
+	}
+
+    &__title {
+		font-family: $font-heading;
+		font-weight: 600;
+		@include font-size($p-font-size, 0.875);
+		color: $aqua;
+	}
+
+	&__hint {
+		@include font-size($p-font-size-small, 0.85);
+	}
+}
+
+.previews {
+	@include flex(row, flex-start, stretch, 16px);
+	flex-wrap: wrap;
+	margin-top: 16px;
+}
+
+.preview {
+	position: relative;
+	@include flex(row, center, center);
+	width: 160px;
+	height: 70px;
+	@include font-size($p-font-size-small, 0.9);
+	background-color: rgba($grey, 0.15);
+	border: 1px solid $line;
+	border-radius: 6px;
+	animation: fade-up 0.4s ease backwards;
+
+    @for $i from 1 through 3 {
+		&:nth-child(#{$i}) {
+			animation-delay: #{0.1 * $i}s;
+		}
+	}
+
+    @include respond('sm') {
+		flex: 1 1 calc(50% - 8px);
+		width: auto;
+	}
+
+	@include respond('xs') {
+		flex-basis: 100%;
+	}
+
+    &__remove {
+		position: absolute;
+		top: -8px;
+		right: -8px;
+		@include flex(row, center, center);
+		width: 22px;
+		height: 22px;
+		font-size: 16px;
+		line-height: 1;
+		color: $grey;
+		background-color: $white;
+		border: 1px solid $aqua;
+		border-radius: 50%;
+		transition: background-color 0.25s ease, color 0.25s ease;
+
+		&:hover {
+			color: $white;
+			background-color: $orange;
+			border-color: $orange;
+		}
+	}
+}

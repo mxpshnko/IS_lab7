@@ -1,0 +1,44 @@
+- var active = ''
+- var categories = ['Сантехніка', 'Електрика', 'Ліфт', 'Прибирання', 'Опалення']
+
+include header.pug
+
+main
+	.container
+		h1.page-title.page-title--center Нова заявка на ремонт
+
+		form.request-form(action='#', method='post')
+			.field
+				label.field__label(for='category') Категорія несправності
+				select#category.field__control(name='category')
+					option(value='') Оберіть категорію
+					each category in categories
+						option(value=category)= category
+			
+			.field
+				label.field__label(for='flat') Квартира
+				input#flat.field__control(type='text', name='flat', placeholder='Наприклад, 54')
+
+			.field
+				label.field__label(for='description') Опис проблеми
+				textarea#description.field__control.field__control--textarea(name='description', placeholder='Опишіть проблему та вкажіть, де саме вона виникла')
+
+
+			.field
+				span.field__label Додати фото
+				label.upload(for='photos')
+					input#photos.upload__input(type='file', name='photos', accept='image/png, image/jpeg', multiple)
+					span.upload__plus +
+					span.upload__title Додати фото
+					span.upload__hint JPG або PNG, до 5 МБ, не більше 5 файлів
+				ul.previews
+					each n in [1, 2, 3]
+						li.preview
+							span Фото #{n}
+							button.preview__remove(type='button', aria-label='Видалити фото') ×
+			
+			.request-form__actions
+				button.btn-orange(type='submit') Надіслати
+				a.btn-outline(href='my-requests.html') Скасувати
+
+include footer.pug

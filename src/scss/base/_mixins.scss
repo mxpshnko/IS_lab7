@@ -1,0 +1,102 @@
+@use 'sass:map';
+@use 'sass:math';
+@use 'variables' as *;
+
+// міксін для флексів
+@mixin flex($direction: row, $justify: flex-start, $align: stretch, $gap: 0) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+    gap: $gap;
+}
+
+// міксін для медіазапитів
+@mixin respond($name) {
+    @media (max-width: map.get($breakpoints, $name)) {
+        @content;
+    }
+}
+
+// міксін для зменшення шрифтів
+@mixin font-size($size, $min: 0.6) {
+	$step: math.div(1 - $min, 4);
+
+	font-size: $size;
+
+	@include respond('lg') {
+		font-size: $size * (1 - $step);
+	}
+
+	@include respond('md') {
+		font-size: $size * (1 - $step * 2);
+	}
+
+	@include respond('sm') {
+		font-size: $size * (1 - $step * 3);
+	}
+
+	@include respond('xs') {
+		font-size: $size * $min;
+	}
+}
+
+// міксін для кнопки зі зміною кольорів при наведенні
+@mixin button($bg, $color, $border, $hover-bg, $hover-color) {
+    @include flex(row, center, center);
+    display: inline-flex;
+    padding: 14px 28px;
+    font-family: $font-heading;
+    font-weight: 600;
+    @include font-size(16px, 0.85);
+    color: &color;
+    background-color: $bg;
+    border: 1px solid $border;
+    border-radius: $radius;
+    cursor: pointer;
+    transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+
+    &:hover {
+        background-color: $hover-bg;
+        color: $hover-color;
+        transform: translateY(-2px);
+    }
+
+    @include respond('sm') {
+        padding: 10px 20px;
+    }
+}
+
+// міксін для переведння таблички у картки на малому розмірі
+@mixin table-cards {
+   @include respond('sm') {
+		&,
+		tbody {
+			display: block;
+		}
+
+		thead {
+			display: none;
+		}
+
+		tr {
+			display: block;
+			padding: 12px 0;
+			border-bottom: 1px solid $line;
+		}
+
+		td {
+			@include flex(row, space-between, center, 16px);
+			padding: 6px 0;
+			border: none;
+
+			&::before {
+				content: attr(data-label);
+				font-family: $font-heading;
+				font-weight: 600;
+				font-size: 13px;
+				color: $aqua;
+			}
+		}
+	}
+}
