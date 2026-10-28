@@ -1,7 +1,7 @@
 - var active = 'calculator'
 - var months = ['Червень 2026', 'Липень 2026', 'Серпень 2026', 'Вересень 2026', 'Жовтень 2026', 'Листопад 2026']
 - var heads = ['Послуга', 'Спосіб обліку', 'Попередні', 'Поточні', 'Обсяг', 'Тариф, грн', 'Сума, грн']
-- var rows = [{ id: 'cold', name: 'Холодна вода', method: 'Лічильник, м³', meter: true, prev: 120, curr: 126, volume: '6', tariff: '28,50', sum: '171,00' }, { id: 'hot', name: 'Гаряча вода', method: 'Лічильник, м³', meter: true, prev: 80, curr: 83, volume: '3', tariff: '95,00', sum: '285,00' }, { id: 'house', name: 'Утримання будинку', method: 'Площа, м²', meter: false, volume: '54', tariff: '7,20', sum: '388,80' }, { id: 'waste', name: 'Вивіз сміття', method: 'Кількість мешканців', meter: false, volume: '3', tariff: '45,00', sum: '135,00' }]
+- var rows = [{ id: 'cold', name: 'Холодна вода', method: 'Лічильник, м³', meter: true, prev: 120, curr: 126, volume: '6', tariff: '65,54', sum: '393,24' }, { id: 'hot', name: 'Гаряча вода', method: 'Лічильник, м³', meter: true, prev: 80, curr: 83, volume: '3', tariff: '150,00', sum: '450,00' }, { id: 'house', name: 'Утримання будинку', method: 'Площа, м²', meter: false, volume: '54', tariff: '5,50', sum: '297,00' }, { id: 'waste', name: 'Вивіз сміття', method: 'Кількість мешканців', meter: false, volume: '3', tariff: '38,00', sum: '114,00' }]
 
 include header.pug
 
@@ -35,31 +35,31 @@ main
 									th= head
 						tbody
 							each row in rows
-								tr
+								tr(data-id=row.id)
 									td
 										strong= row.name
 									td= row.method
 									td
 										if row.meter
-											input.field__control.calc-table__input(type='number', name=row.id + '-prev', value=row.prev)
+											input.field__control.calc-table__input(type='number', name=row.id + '-prev', value=row.prev, min='0')
 										else
 											| —
 									td
 										if row.meter
-											input.field__control.calc-table__input(type='number', name=row.id + '-curr', value=row.curr)
+											input.field__control.calc-table__input(type='number', name=row.id + '-curr', value=row.curr, min='0')
 										else
 											| —
-									td= row.volume
-									td= row.tariff
-									td= row.sum
+									td.calc-volume= row.volume
+									td.calc-tariff= row.tariff
+									td.calc-sum= row.sum
 				p.calc-note Сума = тариф × обсяг. Обсяг лічильника = поточні - попередні показники.
-				
+				p.calc-error#calc-error(hidden) Поточні показники не можуть бути меншими за попередні.
 				.calc-total
 					.calc-total__sum
 						span Разом до сплати:
-						strong#total 979,80 грн
+						strong#total 1 254,24 грн
 					.calc-total__actions
-						button.btn-orange(type='button') Розрахувати
+						button.btn-orange#calc-btn(type='button') Розрахувати
 						button.btn-outline(type='reset') Скинути
 
 include footer.pug

@@ -1,6 +1,5 @@
 - var active = ''
 - var heads = ['№', 'Дата', 'Категорія', 'Статус', 'Дія']
-- var requests = [{ id: 102, date: '14.10.2026', category: 'Сантехніка', status: 'work', statusText: 'В роботі' }, { id: 98, date: '10.09.2026', category: 'Електрика', status: 'assigned', statusText: 'Майстра призначено' }, { id: 95, date: '08.08.2026', category: 'Ліфт', status: 'new', statusText: 'Нова' }, { id: 91, date: '05.05.2026', category: 'Прибирання', status: 'queue', statusText: 'В черзі' }, { id: 84, date: '20.01.2026', category: 'Опалення', status: 'closed', statusText: 'Закрито' }]
 
 include header.pug
 
@@ -16,16 +15,7 @@ main
 					tr
 						each head in heads
 							th= head
-				tbody
-					each request in requests
-						tr
-							td(data-label='№')
-								a.requests-table__num(href='#') №#{request.id}
-							td(data-label='Дата')= request.date
-							td(data-label='Категорія')= request.category
-							td(data-label='Статус')
-								span.status(class='status--' + request.status)= request.statusText
-							td(data-label='Дія')
-								a.btn-outline.btn-small(href='#') Відкрити
+				tbody#requests-body
+			p.requests-empty#requests-empty(hidden) У вас ще немає заявок. Натисніть «Нова заявка», щоб створити першу.
 
 include footer.pug

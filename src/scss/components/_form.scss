@@ -32,9 +32,20 @@
 			box-shadow: 0 0 0 3px rgba($orange, 0.15);
 		}
 
+        &.is-invalid {
+	        border-color: $red;
+        }
+
         &--textarea {
 			min-height: 160px;
 			resize: vertical;
 		}
     }
+}
+
+.field__error {
+	font-family: $font-heading;
+	font-weight: 600;
+	@include font-size(14px, 0.9);
+	color: $red;
 }

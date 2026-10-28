@@ -1,0 +1,6 @@
+[
+	{ "id": "cold", "type": "meter", "tariff": 65.54 },
+	{ "id": "hot", "type": "meter", "tariff": 150 },
+	{ "id": "house", "type": "area", "tariff": 5.5 },
+	{ "id": "waste", "type": "residents", "tariff": 38 }
+]

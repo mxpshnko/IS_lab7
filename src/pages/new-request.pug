@@ -7,22 +7,24 @@ main
 	.container
 		h1.page-title.page-title--center Нова заявка на ремонт
 
-		form.request-form(action='#', method='post')
+		form.request-form#request-form(action='#', method='post', novalidate)
 			.field
 				label.field__label(for='category') Категорія несправності
 				select#category.field__control(name='category')
 					option(value='') Оберіть категорію
 					each category in categories
 						option(value=category)= category
+					p.field__error#category-error(hidden) Оберіть категорію
 			
 			.field
 				label.field__label(for='flat') Квартира
 				input#flat.field__control(type='text', name='flat', placeholder='Наприклад, 54')
+				p.field__error#flat-error(hidden) Вкажіть номер квартири
 
 			.field
 				label.field__label(for='description') Опис проблеми
 				textarea#description.field__control.field__control--textarea(name='description', placeholder='Опишіть проблему та вкажіть, де саме вона виникла')
-
+				p.field__error#description-error(hidden) Опишіть проблему
 
 			.field
 				span.field__label Додати фото
@@ -31,12 +33,9 @@ main
 					span.upload__plus +
 					span.upload__title Додати фото
 					span.upload__hint JPG або PNG, до 5 МБ, не більше 5 файлів
-				ul.previews
-					each n in [1, 2, 3]
-						li.preview
-							span Фото #{n}
-							button.preview__remove(type='button', aria-label='Видалити фото') ×
-			
+				p.field__error#photos-error(hidden)
+				ul.previews#previews
+
 			.request-form__actions
 				button.btn-orange(type='submit') Надіслати
 				a.btn-outline(href='my-requests.html') Скасувати

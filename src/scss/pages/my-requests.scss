@@ -64,22 +64,18 @@ $status-colors: (
 	}
 
     tbody tr {
-        transition: background-color 0.25s ease;
-		animation: fade-up 0.5s ease backwards;
-        
-        &:hover {
-			background-color: rgba($light-aqua, 0.35);
-		}
+	    transition: background-color 0.25s ease;
+	    animation: fade-up 0.5s ease backwards;
+	
+	    animation-delay: calc(min(var(--i, 0), 8) * 0.2s);
 
-		&:last-child td {
-			border-bottom: none;
-		}
+	    &:hover {
+		    background-color: rgba($light-aqua, 0.35);
+	    }
 
-        @for $i from 1 through 5 {
-			&:nth-child(#{$i}) {
-				animation-delay: #{0.18 * $i}s;
-			}
-		}
+	    &:last-child td {
+		    border-bottom: none;
+	    }
     }
 
     &__num {
@@ -122,3 +118,56 @@ $status-colors: (
 	}
 }
 
+.requests-table tbody tr.is-removing {
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+@keyframes flash {
+	from {
+		background-color: rgba($orange, 0.3);
+	}
+	to {
+		background-color: transparent;
+	}
+}
+
+.requests-table tbody tr.is-new td {
+	animation: flash 2.5s ease 0.4s backwards;
+}
+
+.requests-table tbody .requests-table__details {
+	animation: none;
+
+	&:hover {
+		background-color: transparent;
+	}
+
+	td {
+		padding: 16px 8px 24px;
+		text-align: left;
+
+		&::before {
+			content: none;
+		}
+
+		@include respond('sm') {
+			display: block;
+		}
+	}
+}
+
+.requests-table__info {
+	@include flex(column, flex-start, flex-start, 6px);
+	text-align: left;
+}
+
+.requests-table__actions {
+	@include flex(row, flex-end, center, 8px);
+	flex-wrap: wrap;
+}
+
+.requests-empty {
+	padding: 32px 0;
+	text-align: center;
+}

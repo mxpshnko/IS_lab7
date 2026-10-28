@@ -9,6 +9,10 @@
 	@include button(transparent, $aqua, $aqua, $aqua, $white);
 }
 
+.btn-danger {
+	@include button(transparent, $red, $red, $red, $white);
+}
+
 .btn-small {
 	padding: 8px 20px;
 	@include font-size(14px, 0.9);
